@@ -1,28 +1,21 @@
-# Reaction–Diffusion (RD)
+# Reaction–Diffusion（Gray–Scott）— クリックで SEED
 
-このアプリは **反応拡散（Gray–Scott モデル）** を CPU でリアルタイムに可視化する PWA です。  
-**ヒョウ柄・シマ模様・迷路状パターン** など “自然の模様” を生成します。
-
-- 画面は常に **正方形** に保たれ、モバイルでも縦横比が崩れません。
-- **PWA** 対応（ホーム画面に追加 / オフライン起動）
-- **強制リセット**（Service Worker / Cache / Storage 全消去）付き：`force-reset.html`
-
-## スクリーンショット
-
-![screenshot](./screenshot.png)
+- **クリック / タップ**した場所に**種（SEED）**を注入して模様を起こします。
+- CPU 実装（WebGL 不要）。
 
 ## 操作
-- Start / Stop / Reset ボタン
-- パラメータ（F, K, DiffU, DiffV）とプリセット（Spots/Stripes/Maze/Worms）
-- キー操作：**R**=Reset、**K**=Kill、**F12**=Hard Reset（※DevToolsが開く場合あり）
-- コンソール：`window.kill()`, `window.resetRD()`, `window.hardReset()`
+- クリック／ドラッグ：SEED 注入
+- 速度：1–8（1フレームの反復回数）
+- F, k, Du, Dv, dt：各係数
+- 強注入：中心に大きめの種
+- リセット：初期化
+- PNG保存：画像保存
 
-## デプロイ（GitHub Pages）
-1. 本フォルダの中身をリポジトリ直下へ配置
-2. Settings → Pages → Branch: `main` / folder: `/root` を選択
-3. 旧キャッシュが残る場合は `/force-reset.html` を開いて **Clean & Reload**
+### 推奨値
+- F ≈ 0.032–0.040、k ≈ 0.060–0.066
+- Du=0.16, Dv=0.08, dt=1.0 から調整
 
----
+## PWA
+- ホーム画面に追加でオフライン起動。反映されない時は SW/Cache を消去。
 
-**注意**: ここでは Gray–Scott でのパターン生成を実装しています（論文の厳密な拡散泳動モデルではありません）。
-論文に近い見た目（“美しく不完全”な粒子由来のブロッチ）に寄せる**Imperfect-like**レンダリングは、将来的に WebGL2 / compute での高速化と併せてブランチを分けて統合可能です。
+(c) 2025 Masato Nasu

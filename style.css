@@ -1,30 +1,98 @@
-/* Minimal modern UI with ivory/sage/teal/sand palette */
+
 :root{
-  --ink: #F3F1EC;   /* ivory */
-  --sage:#C9D7C5;   /* light sage */
-  --teal:#2E8C87;   /* deep teal */
-  --sand:#A78967;   /* sand */
-  --bg:#0E1114;     /* dark */
-  --panel:#12161B;
-  --line: #2E8C87;
+  --bg:#0b0f16;
+  --card:#0f172a;
+  --ink:#e5f3f1;
+  --ink-soft:#b9d7d1;
+  --accent:#23a39e;
+  --accent-2:#2ec2bb;
+  --stroke:#0b6f6a;
+  --radius:14px;
+  --shadow: 0 10px 30px rgba(0,0,0,.35);
 }
 *{box-sizing:border-box}
-html,body{height:100%;margin:0;background:var(--bg);color:var(--ink);
-  font:16px/1.6 ui-sans-serif,system-ui,"Hiragino Kaku Gothic ProN",Meiryo,Arial}
-h1{font-weight:800;letter-spacing:.02em;margin:18px 20px}
-.canvas-wrap{display:grid;place-items:center;padding:8px}
-#view{width:min(96vw, calc(100svh - 220px));aspect-ratio:1;border-radius:16px;
-  background:#000;box-shadow:0 0 0 1px color-mix(in oklab, var(--line) 80%, #fff 0%),
-  0 12px 40px rgba(0,0,0,.35)}
-
-.controls{padding:12px 16px;display:grid;gap:12px;background:
-  linear-gradient(180deg, #0e1114 0, #0e1114 50%, #10151a 100%)}
-.row{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
-
-label{display:flex;gap:10px;align-items:center;opacity:.95}
-select,input[type=range]{accent-color:var(--teal)}
-button{background:var(--teal);color:#fff;border:none;padding:8px 14px;border-radius:10px;
-  font-weight:700;box-shadow:0 6px 20px rgba(46,140,135,.25);cursor:pointer}
-button:hover{filter:brightness(1.06)}
-footer{opacity:.55;margin:8px 16px}
+html,body{height:100%}
+body{
+  margin:0;
+  color:var(--ink);
+  background:radial-gradient(1200px 800px at 80% -10%, #0f1f30 0%, var(--bg) 50%) fixed;
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Hiragino Kaku Gothic ProN", "Noto Sans JP", sans-serif;
+}
+header{
+  padding:24px 20px 0;
+}
+h1{
+  margin:0;
+  font-weight:800;
+  letter-spacing:.01em;
+  text-shadow:0 2px 18px rgba(46,194,187,.25);
+}
+.layout{
+  padding:16px 20px 40px;
+  display:grid;
+  grid-template-columns: 1fr min(520px, 42vw);
+  grid-gap:24px;
+}
+@media (max-width: 1100px){
+  .layout{ grid-template-columns: 1fr; }
+}
+.stage-card{
+  background:linear-gradient(180deg, rgba(35,163,158,.12), rgba(35,163,158,.04));
+  border:1px solid rgba(35,163,158,.25);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding:20px;
+}
+.square-wrap{
+  aspect-ratio: 1;
+  width:min(92vw, 820px);
+  max-width:100%;
+  margin-inline:auto;
+  border-radius: 12px;
+  display:grid;
+  place-items:center;
+  background:radial-gradient(500px 450px at 50% 20%, #0b1622 0%, #0a121b 45%, #060a10 100%);
+  border:1px solid rgba(35,163,158,.4);
+  box-shadow: inset 0 0 0 1px rgba(35,163,158,.15), 0 18px 60px rgba(0,0,0,.45);
+}
+canvas{
+  width:95%;
+  height:95%;
+  max-width:95%;
+  max-height:95%;
+  image-rendering: pixelated;
+  border-radius:10px;
+  outline: 1px solid rgba(35,163,158,.35);
+  box-shadow: inset 0 0 0 2px rgba(35,163,158,.14);
+  touch-action: none;
+}
+.hint{
+  margin:.6rem 0 0;
+  color:var(--ink-soft);
+  font-size:.9rem;
+}
+.panel{
+  background:linear-gradient(180deg, rgba(3,10,14,.6), rgba(3,10,14,.2));
+  border:1px solid rgba(35,163,158,.25);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding:18px;
+}
+.row{ display:flex; align-items:center; gap:10px; margin:8px 0; flex-wrap:wrap; }
+.row input[type="range"]{ width:180px; }
+.row label{ color:var(--ink-soft); font-weight:600; }
+.row output{ width:50px; text-align:right; color:var(--ink); font-variant-numeric: tabular-nums; }
+.ml{ margin-left:14px; }
+.buttons{ gap:14px; }
+button{
+  background: linear-gradient(180deg, var(--accent), var(--accent-2));
+  color:#052524;
+  border:none; border-radius:10px;
+  padding:9px 16px;
+  font-weight:800; letter-spacing:.02em;
+  box-shadow: 0 6px 20px rgba(46,194,187,.35);
+  cursor:pointer;
+}
+button:hover{ filter:brightness(1.05)}
+button:active{ transform:translateY(1px) }
+small.impl{ color: var(--ink-soft); opacity:.85 }
