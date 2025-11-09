@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Reaction–Diffusion (Gray–Scott) — CPU</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" sizes="192x192" href="icon-192.png">
+  <link rel="icon" sizes="512x512" href="icon-512.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Reaction–Diffusion (Gray–Scott)</h1>
+  </header>
+
+  <main>
+    <div class="canvas-wrap">
+      <canvas id="view"></canvas>
+    </div>
+
+    <section class="controls">
+      <div class="row">
+        <label>解像度:
+          <select id="res" aria-label="解像度">
+            <option value="256">256</option>
+            <option value="384">384</option>
+            <option value="512" selected>512</option>
+            <option value="640">640</option>
+            <option value="768">768</option>
+          </select>
+        </label>
+        <label>速度:<input id="speed" type="range" min="1" max="8" value="3"></label>
+        <button id="reset" type="button">リセット</button>
+        <button id="seed" type="button">強注入</button>
+        <button id="save" type="button">PNG保存</button>
+      </div>
+
+      <div class="row grid">
+        <label>F:  <input id="F"  type="range" min="0.0" max="0.08" value="0.038" step="0.0005"><span id="Fv"></span></label>
+        <label>k:  <input id="k"  type="range" min="0.0" max="0.07" value="0.061" step="0.0005"><span id="kv"></span></label>
+        <label>Du: <input id="Du" type="range" min="0.05" max="0.4" value="0.16"  step="0.005"><span id="Duv"></span></label>
+        <label>Dv: <input id="Dv" type="range" min="0.01" max="0.2" value="0.08"  step="0.005"><span id="Dvv"></span></label>
+        <label>dt: <input id="dt" type="range" min="0.2" max="2.0" value="1.0"   step="0.1"><span id="dtv"></span></label>
+      </div>
+    </section>
+  </main>
+
+  <footer><small>CPU実装</small></footer>
+
+  <script src="rd_cpu.js"></script>
+  <script>
+    // スライダー値の表示（必要なら）
+    const bindVal = (id, span) => {
+      const el = document.getElementById(id), sv = document.getElementById(span);
+      if (el && sv) { const f = () => sv.textContent = Number(el.value).toFixed(3); el.addEventListener('input', f); f(); }
+    };
+    bindVal('F','Fv'); bindVal('k','kv'); bindVal('Du','Duv'); bindVal('Dv','Dvv'); bindVal('dt','dtv');
+    // PWA SW 登録（存在する場合のみ）
+    if ('serviceWorker' in navigator) {
+      fetch('sw.js', {method:'HEAD'}).then(r=>{ if (r.ok) navigator.serviceWorker.register('sw.js'); });
+    }
+  </script>
+</body>
+</html>

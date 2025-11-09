@@ -1,0 +1,30 @@
+/* Minimal modern UI with ivory/sage/teal/sand palette */
+:root{
+  --ink: #F3F1EC;   /* ivory */
+  --sage:#C9D7C5;   /* light sage */
+  --teal:#2E8C87;   /* deep teal */
+  --sand:#A78967;   /* sand */
+  --bg:#0E1114;     /* dark */
+  --panel:#12161B;
+  --line: #2E8C87;
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;background:var(--bg);color:var(--ink);
+  font:16px/1.6 ui-sans-serif,system-ui,"Hiragino Kaku Gothic ProN",Meiryo,Arial}
+h1{font-weight:800;letter-spacing:.02em;margin:18px 20px}
+.canvas-wrap{display:grid;place-items:center;padding:8px}
+#view{width:min(96vw, calc(100svh - 220px));aspect-ratio:1;border-radius:16px;
+  background:#000;box-shadow:0 0 0 1px color-mix(in oklab, var(--line) 80%, #fff 0%),
+  0 12px 40px rgba(0,0,0,.35)}
+
+.controls{padding:12px 16px;display:grid;gap:12px;background:
+  linear-gradient(180deg, #0e1114 0, #0e1114 50%, #10151a 100%)}
+.row{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+
+label{display:flex;gap:10px;align-items:center;opacity:.95}
+select,input[type=range]{accent-color:var(--teal)}
+button{background:var(--teal);color:#fff;border:none;padding:8px 14px;border-radius:10px;
+  font-weight:700;box-shadow:0 6px 20px rgba(46,140,135,.25);cursor:pointer}
+button:hover{filter:brightness(1.06)}
+footer{opacity:.55;margin:8px 16px}
